@@ -1,0 +1,31 @@
+services:
+  database:
+    container_name: postgresql
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: user
+      POSTGRES_DB: blogdb
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - type: volume
+        source: database-store
+        target: /var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - 4000:4000
+    volumes:
+      - type: bind
+        source: ./backend/src
+        target: /usr/src/app/src
+
+volumes:
+  database-store:
