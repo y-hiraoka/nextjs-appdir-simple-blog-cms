@@ -11,21 +11,13 @@ services:
       - type: volume
         source: database-store
         target: /var/lib/postgresql/data
+    ports:
+      - 5432:5432
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
-
-  backend:
-    build:
-      context: ./backend
-    ports:
-      - 4000:4000
-    volumes:
-      - type: bind
-        source: ./backend/src
-        target: /usr/src/app/src
 
 volumes:
   database-store:
