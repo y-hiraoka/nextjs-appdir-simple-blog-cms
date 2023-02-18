@@ -1,0 +1,26 @@
+.formTitle {
+  font-size: 16px;
+}
+
+.form {
+  margin-top: 12px;
+  > * + * {
+    margin-top: 8px;
+  }
+}
+
+.formLabel {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.submit {
+  text-align: right;
+}
+
+.submitButton {
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: rgb(185, 185, 185);
+  padding: 2px 6px;
+}

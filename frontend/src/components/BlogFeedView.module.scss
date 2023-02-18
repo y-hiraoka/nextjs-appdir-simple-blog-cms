@@ -1,0 +1,67 @@
+.feed {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  isolation: unset;
+}
+
+.feedItem {
+  color: var(--text-primary);
+  text-decoration: none;
+  background-color: #fafafa;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px 1px rgba(22, 22, 22, 0.05);
+  transition: box-shadow 0.3s;
+}
+
+.feedItem:hover {
+  box-shadow: 0 3px 6px 3px rgba(22, 22, 22, 0.07);
+}
+
+.feedItemThumbnail {
+  position: relative;
+  aspect-ratio: 1200/630;
+}
+
+.feedItemTitle {
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 8px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    border-color: #edf2f7;
+    background: #edf2f7;
+  }
+  100% {
+    border-color: #a0aec0;
+    background: #a0aec0;
+  }
+}
+
+.skeletonRoot {
+  padding: 12px;
+  background-color: #fafafa;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px 1px rgba(22, 22, 22, 0.05);
+}
+
+.skeletonImage {
+  aspect-ratio: 1200/630;
+  width: 100%;
+  animation: 0.8s linear infinite alternate skeletonAnimation;
+  opacity: 0.7;
+}
+
+.skeletonTitle {
+  margin-top: 8px;
+  animation: 0.8s linear infinite alternate skeletonAnimation;
+  opacity: 0.7;
+  height: 40px;
+}

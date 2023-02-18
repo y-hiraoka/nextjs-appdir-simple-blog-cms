@@ -1,6 +1,7 @@
 import { database } from "../database";
 
 type GetPostsParams = {
+  tag: string | undefined;
   includeDraft: boolean;
 };
 
@@ -15,7 +16,10 @@ export async function getPosts(params: GetPostsParams) {
       postTags: true,
     },
     orderBy: { createdAt: "desc" },
-    where: { published: params.includeDraft ? undefined : true },
+    where: {
+      published: params.includeDraft ? undefined : true,
+      postTags: params.tag ? { some: { tag: params.tag } } : undefined,
+    },
   });
 }
 
@@ -62,28 +66,23 @@ type UpdatePostParams = {
 };
 
 export async function updatePost(params: UpdatePostParams) {
-  return await database.$transaction(async (transaction) => {
-    if (params.tags !== undefined) {
-      await transaction.postTag.deleteMany({
-        where: { postId: params.id },
-      });
-    }
-
-    const updated = await database.post.update({
-      where: { id: params.id },
-      data: {
-        title: params.title,
-        content: params.content,
-        published: params.published,
-        postTags: params.tags
-          ? { createMany: { data: params.tags.map((tag) => ({ tag })) } }
-          : undefined,
-      },
-      include: { postTags: true },
-    });
-
-    return updated;
+  const updated = await database.post.update({
+    where: { id: params.id },
+    data: {
+      title: params.title,
+      content: params.content,
+      published: params.published,
+      postTags: params.tags
+        ? {
+            deleteMany: { postId: params.id },
+            createMany: { data: params.tags.map((tag) => ({ tag })) },
+          }
+        : undefined,
+    },
+    include: { postTags: true },
   });
+
+  return updated;
 }
 
 type DeletePostParams = {

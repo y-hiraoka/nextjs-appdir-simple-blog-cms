@@ -1,4 +1,5 @@
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 import {
   serializerCompiler,
   validatorCompiler,
@@ -17,6 +18,7 @@ import {
   updatePostRequest,
 } from "./dto/post";
 import { notFoundResponse } from "./dto/system";
+import { tagsResponse } from "./dto/tag";
 import { createComment, getComments } from "./service/comments";
 import {
   createPost,
@@ -25,12 +27,17 @@ import {
   getPosts,
   updatePost,
 } from "./service/posts";
+import { getTags } from "./service/tags";
 
 const server = Fastify({});
 
 // Add schema validator and serializer
 server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
+
+server.register(cors, {
+  origin: "http://localhost:3000",
+});
 
 server
   .withTypeProvider<ZodTypeProvider>()
@@ -39,15 +46,18 @@ server
     url: "/posts",
     schema: {
       querystring: z.object({
-        includeDraft: z.optional(z.boolean()),
+        tag: z.optional(z.string()),
+        includeDraft: z.optional(z.literal("1")),
       }),
       response: {
         200: postsResponse,
       },
     },
     handler: async (req, res) => {
+      await sleep();
       const posts = await getPosts({
-        includeDraft: req.query.includeDraft ?? false,
+        tag: req.query.tag,
+        includeDraft: req.query.includeDraft === "1",
       });
       res.send(posts);
     },
@@ -65,6 +75,7 @@ server
       },
     },
     handler: async (req, res) => {
+      await sleep();
       const post = await getPost({ id: req.params.postId });
       if (post === null) {
         res.status(404).send({ message: `${req.params.postId} is not found.` });
@@ -83,6 +94,7 @@ server
       },
     },
     handler: async (req, res) => {
+      await sleep();
       const created = await createPost(req.body);
       res.send(created);
     },
@@ -102,6 +114,7 @@ server
     },
     handler: async (req, res) => {
       try {
+        await sleep();
         const post = await updatePost({ id: req.params.postId, ...req.body });
         res.send(post);
       } catch (error) {
@@ -123,6 +136,7 @@ server
     },
     handler: async (req, res) => {
       try {
+        await sleep();
         const post = await deletePost({ id: req.params.postId });
         res.send(post);
       } catch (error) {
@@ -143,14 +157,9 @@ server
       },
     },
     handler: async (req, res) => {
+      await sleep();
       const comments = await getComments({ postId: req.params.postId });
-      if (comments.length > 0) {
-        res.send(comments);
-      } else {
-        res
-          .status(404)
-          .send({ message: `${req.params.postId}'s comments is not found.` });
-      }
+      res.send(comments);
     },
   })
   .route({
@@ -168,6 +177,7 @@ server
     },
     handler: async (req, res) => {
       try {
+        await sleep();
         const created = await createComment({
           postId: req.params.postId,
           content: req.body.content,
@@ -178,8 +188,24 @@ server
         res.status(404).send({ message: `${req.params.postId} is not found.` });
       }
     },
+  })
+  .route({
+    method: "GET",
+    url: "/tags",
+    schema: {
+      response: {
+        200: tagsResponse,
+      },
+    },
+    handler: async (req, res) => {
+      await sleep();
+      const tags = await getTags();
+      res.send(tags.map((t) => ({ tag: t.tag, count: t._count })));
+    },
   });
 
 server
   .listen({ port: 4000, host: "0.0.0.0" })
   .then(() => console.log("start server at http://localhost:4000"));
+
+const sleep = (ms = 1000) => new Promise<void>((res) => setTimeout(res, ms));

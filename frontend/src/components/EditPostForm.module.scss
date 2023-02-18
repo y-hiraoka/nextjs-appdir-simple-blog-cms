@@ -1,0 +1,37 @@
+.form {
+  padding: 16px 0;
+
+  > * + * {
+    margin-top: 32px;
+  }
+}
+
+.saveOperation {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 24px;
+}
+
+.checkbox {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+  accent-color: var(--text-primary);
+}
+
+.submitButton {
+  border-radius: 4px;
+  padding: 4px 16px;
+  background-color: #333;
+  color: white;
+  font-weight: bold;
+}
+
+.formLabel {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}

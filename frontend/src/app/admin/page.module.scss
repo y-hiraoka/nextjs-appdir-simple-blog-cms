@@ -1,0 +1,66 @@
+.main {
+  max-width: var(--container-width);
+  margin: auto;
+  padding: 16px;
+}
+
+.addNewPost {
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.postList {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  margin-top: 24px;
+}
+
+.post {
+  display: grid;
+  grid-template-areas:
+    "published title"
+    "createdAt createdAt"
+    "updatedAt updatedAt";
+  grid-template-columns: auto 1fr;
+  gap: 4px 12px;
+
+  padding: 16px 0;
+  border-bottom: 1px solid rgb(186, 184, 184);
+}
+
+.postPublished {
+  grid-area: published;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 2px 4px;
+
+  &[data-is-published="true"] {
+    background-color: var(--text-primary);
+    color: white;
+  }
+  &[data-is-published="false"] {
+    border: 1px solid var(--text-primary);
+  }
+}
+
+.postTitle {
+  font-size: 18px;
+  font-weight: bold;
+  grid-area: title;
+}
+
+.postCreatedAt {
+  grid-area: createdAt;
+}
+
+.postUpdatedAt {
+  grid-area: updatedAt;
+}
+
+.postCreatedAt,
+.postUpdatedAt {
+  font-size: 12px;
+  color: var(--text-secondary);
+}

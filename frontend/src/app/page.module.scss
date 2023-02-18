@@ -1,0 +1,35 @@
+.main {
+  max-width: var(--container-width);
+  margin: auto;
+  padding: 32px 16px;
+}
+
+.mission {
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 1.8;
+}
+
+.missionDescription {
+  margin-top: 16px;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.blogs {
+  margin-top: 128px;
+  > * + * {
+    margin-top: 32px;
+  }
+}
+
+.blog {
+  > * + * {
+    margin-top: 16px;
+  }
+}
+
+.blogTitle {
+  font-size: 18px;
+  font-weight: bold;
+}

@@ -1,0 +1,32 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 240px;
+  padding: 16px 0;
+  gap: 16px;
+}
+
+.tags {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tag {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  height: 40px;
+  width: 100%;
+  border-radius: 4px;
+  font-weight: bold;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.tag:hover,
+.tag:focus-visible {
+  background-color: rgb(216, 216, 216);
+}

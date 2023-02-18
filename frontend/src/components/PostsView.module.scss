@@ -1,0 +1,90 @@
+.posts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.post {
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px 1px rgba(22, 22, 22, 0.05);
+  padding: 12px;
+  background-color: #fafafa;
+  text-decoration: none;
+  transition: box-shadow 0.3s;
+
+  > * + * {
+    margin-top: 8px;
+  }
+}
+
+.post:hover {
+  box-shadow: 0 3px 6px 3px rgba(22, 22, 22, 0.07);
+}
+
+.postTitle {
+  font-size: 18px;
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.postTags {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.postTag {
+  font-size: 12px;
+  font-weight: bold;
+  color: white;
+  background-color: var(--text-secondary);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.postDatetime {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.postSkeleton {
+  height: 112px;
+  width: 100%;
+}
+
+.postSkeletonTitle {
+  height: 28px;
+  animation: 0.8s linear infinite alternate skeletonAnimation;
+  opacity: 0.7;
+}
+
+.postSkeletonTag {
+  height: 24px;
+  width: 50px;
+  animation: 0.8s linear infinite alternate skeletonAnimation;
+  opacity: 0.7;
+  border-radius: 4px;
+}
+
+.postSkeletonDatetime {
+  height: 18px;
+  width: 160px;
+  animation: 0.8s linear infinite alternate skeletonAnimation;
+  opacity: 0.7;
+}
+
+@keyframes skeletonAnimation {
+  0% {
+    border-color: #edf2f7;
+    background: #edf2f7;
+  }
+  100% {
+    border-color: #a0aec0;
+    background: #a0aec0;
+  }
+}
