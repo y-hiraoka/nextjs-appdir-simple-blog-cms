@@ -4,9 +4,7 @@ import { FC } from "react";
 
 async function fetchPostsByTag(tag: string) {
   return await fetch(
-    `${
-      process.env.NEXT_PUBLIC_API_SERVER_ORIGIN
-    }/posts?tag=${encodeURIComponent(tag)}`,
+    `${process.env.API_SERVER_ORIGIN}/posts?tag=${encodeURIComponent(tag)}`,
     {
       next: { revalidate: 60 },
     }

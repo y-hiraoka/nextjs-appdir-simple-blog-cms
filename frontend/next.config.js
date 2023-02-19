@@ -6,6 +6,14 @@ const nextConfig = {
   images: {
     domains: ["res.cloudinary.com"],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/:path*",
+        destination: `${process.env.API_SERVER_ORIGIN}/:path*`,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;

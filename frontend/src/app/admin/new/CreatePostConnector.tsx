@@ -17,7 +17,7 @@ export const CreatePostConnector: FC = () => {
       }}
       onSubmit={useCallback(
         async (values) => {
-          await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts`, {
+          await fetch(`/api/posts`, {
             method: "POST",
             cache: "no-store",
             headers: {

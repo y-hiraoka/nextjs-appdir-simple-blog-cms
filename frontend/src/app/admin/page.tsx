@@ -6,7 +6,7 @@ import styles from "./page.module.scss";
 
 const fetchPostsIncludeDrafts = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts?includeDraft=1`,
+    `${process.env.API_SERVER_ORIGIN}/posts?includeDraft=1`,
     { cache: "no-store" }
   );
 

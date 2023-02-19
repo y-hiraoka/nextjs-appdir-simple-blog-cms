@@ -1,4 +1,4 @@
-import { PostDetail } from "@/dto/post";
+import { PostDetail, PostListItem } from "@/dto/post";
 import { FC, Suspense } from "react";
 import { marked } from "marked";
 import hljs from "highlight.js";
@@ -8,12 +8,9 @@ import { CommentForm } from "./CommentForm";
 import { PostComments } from "./PostComments";
 
 async function fetchPost(postId: string) {
-  return await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts/${postId}`,
-    {
-      next: { revalidate: 60 },
-    }
-  ).then<PostDetail>((r) => r.json());
+  return await fetch(`${process.env.API_SERVER_ORIGIN}/posts/${postId}`, {
+    next: { revalidate: 60 },
+  }).then<PostDetail>((r) => r.json());
 }
 
 // @ts-expect-error
@@ -43,3 +40,14 @@ const PostsPage: FC<{ params: { postId: string } }> = async ({ params }) => {
 };
 
 export default PostsPage;
+
+async function fetchPosts() {
+  return await fetch(`${process.env.API_SERVER_ORIGIN}/posts`, {
+    next: { revalidate: 60 },
+  }).then<PostListItem[]>((r) => r.json());
+}
+
+export async function generateStaticParams() {
+  const posts = await fetchPosts();
+  return posts.map((post) => ({ postId: post.id }));
+}

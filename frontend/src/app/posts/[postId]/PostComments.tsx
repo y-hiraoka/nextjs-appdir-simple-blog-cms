@@ -5,8 +5,7 @@ import styles from "./PostComments.module.scss";
 
 const fetchPostComments = async (postId: string) => {
   return await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts/${postId}/comments`,
-    { cache: "no-store" }
+    `${process.env.API_SERVER_ORIGIN}/posts/${postId}/comments`
   ).then<Comment[]>((r) => r.json());
 };
 

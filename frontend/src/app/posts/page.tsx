@@ -3,7 +3,7 @@ import { PostListItem } from "@/dto/post";
 import { FC } from "react";
 
 async function fetchPosts() {
-  return await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts`, {
+  return await fetch(`${process.env.API_SERVER_ORIGIN}/posts`, {
     next: { revalidate: 60 },
   }).then<PostListItem[]>((r) => r.json());
 }

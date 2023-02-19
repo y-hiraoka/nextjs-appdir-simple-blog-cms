@@ -15,17 +15,14 @@ export const CommentForm: FC<{ postId: string }> = ({ postId }) => {
 
   const onSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
-    await fetch(
-      `${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts/${postId}/comments`,
-      {
-        method: "POST",
-        cache: "no-store",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ submitter, content }),
-      }
-    ).then((r) => r.json());
+    await fetch(`/api/posts/${postId}/comments`, {
+      method: "POST",
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ submitter, content }),
+    }).then((r) => r.json());
     setSubmitter("");
     setContent("");
     router.refresh();

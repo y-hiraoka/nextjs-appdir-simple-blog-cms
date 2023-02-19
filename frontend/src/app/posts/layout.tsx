@@ -5,7 +5,7 @@ import { FC } from "react";
 import styles from "./layout.module.scss";
 
 async function fetchTags() {
-  return await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/tags`, {
+  return await fetch(`${process.env.API_SERVER_ORIGIN}/tags`, {
     next: { revalidate: 60 },
   }).then<PostTag[]>((r) => r.json());
 }

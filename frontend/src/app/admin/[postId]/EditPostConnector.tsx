@@ -20,22 +20,19 @@ export const EditPostConnector: FC<{ post: PostDetail }> = ({ post }) => {
         }}
         onSubmit={useCallback(
           async (values) => {
-            await fetch(
-              `${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts/${post.id}`,
-              {
-                method: "PUT",
-                cache: "no-store",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  title: values.title,
-                  content: values.content,
-                  tags: values.postTags,
-                  published: values.published,
-                }),
-              }
-            ).then((r) => r.json());
+            await fetch(`/api/posts/${post.id}`, {
+              method: "PUT",
+              cache: "no-store",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                title: values.title,
+                content: values.content,
+                tags: values.postTags,
+                published: values.published,
+              }),
+            }).then((r) => r.json());
 
             router.push("/admin");
             router.refresh();
@@ -48,10 +45,10 @@ export const EditPostConnector: FC<{ post: PostDetail }> = ({ post }) => {
         className={styles.deletePostButton}
         onClick={async () => {
           if (window.confirm("記事を削除しますか？")) {
-            await fetch(
-              `${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts/${post.id}`,
-              { cache: "no-store", method: "DELETE" }
-            );
+            await fetch(`/api/posts/${post.id}`, {
+              cache: "no-store",
+              method: "DELETE",
+            });
             router.push("/admin");
             router.refresh();
           }

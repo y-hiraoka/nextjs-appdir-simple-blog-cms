@@ -5,7 +5,7 @@ import { EditPostConnector } from "./EditPostConnector";
 
 const fetchPost = async (postId: string) => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_SERVER_ORIGIN}/posts/${postId}`,
+    `${process.env.API_SERVER_ORIGIN}/posts/${postId}`,
     { cache: "no-store" }
   );
 

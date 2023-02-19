@@ -2,7 +2,6 @@ import RssParser from "rss-parser";
 import { FC } from "react";
 import Image from "next/image";
 import styles from "./BlogFeedView.module.scss";
-import chiroru from "./chiroru.jpg";
 
 const fetchFeed = async (feedURL: string) => {
   const data = await fetch(feedURL, { next: { revalidate: 60 } }).then((res) =>
@@ -32,11 +31,13 @@ export const BlogFeedView: FC<{ feedName: string }> = async ({ feedName }) => {
           className={styles.feedItem}
         >
           <div className={styles.feedItemThumbnail}>
-            <Image
-              alt={item.title ?? "post thumbnail"}
-              src={item.thumnail ?? chiroru}
-              fill
-            />
+            {item.thumnail && (
+              <Image
+                alt={item.title ?? "post thumbnail"}
+                src={item.thumnail}
+                fill
+              />
+            )}
           </div>
           <p className={styles.feedItemTitle}>{item.title}</p>
         </a>
