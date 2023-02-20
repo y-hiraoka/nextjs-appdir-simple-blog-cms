@@ -1,0 +1,18 @@
+.comment {
+  padding: 8px 0;
+  border-bottom: 1px solid rgb(186, 184, 184);
+}
+
+.commentSubmitter {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.commentContent {
+  margin: 4px 0;
+}
+
+.commentCreatedAt {
+  font-size: 12px;
+  color: var(--text-secondary);
+}

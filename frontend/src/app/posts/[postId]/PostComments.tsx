@@ -1,6 +1,7 @@
 import { Comment } from "@/dto/comment";
 import { format } from "date-fns";
 import { FC } from "react";
+import { PostComment } from "@/components/PostComment";
 import styles from "./PostComments.module.scss";
 
 const fetchPostComments = async (postId: string) => {
@@ -24,12 +25,16 @@ export const PostComments: FC<{ postId: string }> = async ({ postId }) => {
       {postComments.length > 0 ? (
         <ul className={styles.comments}>
           {postComments.map((comment) => (
-            <li key={comment.id} className={styles.comment}>
-              <p className={styles.commentSubmitter}>{comment.submitter}</p>
-              <p className={styles.commentContent}>{comment.content}</p>
-              <p className={styles.commentCreatedAt}>
-                {format(new Date(comment.createdAt), "yyyy/MM/dd HH:mm")}
-              </p>
+            <li key={comment.id}>
+              <PostComment
+                comment={{
+                  ...comment,
+                  createdAt: format(
+                    new Date(comment.createdAt),
+                    "yyyy/MM/dd HH:mm"
+                  ),
+                }}
+              />
             </li>
           ))}
         </ul>
