@@ -10,7 +10,7 @@ npm install
 
 ## データベース起動
 
-Docker Compose で postgreSQL を起動します。dev も prod も同じ DB を向いています。
+Docker Compose で postgreSQL を起動します。
 
 ```sh
 docker compose up -d
