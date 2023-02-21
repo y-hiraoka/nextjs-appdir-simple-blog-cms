@@ -16,7 +16,7 @@ Docker Compose で postgreSQL を起動します。dev も prod も同じ DB を
 docker compose up -d
 ```
 
-## dev
+## アプリ起動
 
 ### backend
 
@@ -25,6 +25,9 @@ cd backend
 
 # 環境変数ファイル作成
 echo 'DATABASE_URL="postgresql://user:password@localhost:5432/blogdb?schema=public"' > .env
+
+# データベース作成
+npx prisma migrate dev
 
 # サーバー起動
 npm run dev
@@ -40,35 +43,6 @@ echo 'API_SERVER_ORIGIN=http://127.0.0.1:4000' > .env.local
 
 # サーバー起動
 npm run dev
-```
-
-http://localhost:3000 にアクセス
-
-## prod
-
-### backend
-
-```sh
-cd backend
-
-# 環境変数ファイル作成
-echo 'DATABASE_URL="postgresql://user:password@localhost:5432/blogdb?schema=public"' > .env
-
-# サーバー起動
-npm run start
-```
-
-### frontend
-
-```sh
-cd frontend
-
-# 環境変数ファイル作成
-echo 'API_SERVER_ORIGIN=http://127.0.0.1:4000' > .env.local
-
-# サーバー起動
-npm run build
-npm run start
 ```
 
 http://localhost:3000 にアクセス
